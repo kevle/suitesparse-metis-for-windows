@@ -12,6 +12,11 @@ FILE(GLOB LIBHDRS "${CHOLMOD_SOURCE_DIR}/Include/*.h")
 
 FILE(GLOB LIBSRCS "SourceWrappers/*.c")
 
+IF(${CUDA_FOUND})
+FILE(GLOB GPU_LIB_SRC_CU "GPU/*.cu")
+LIST(APPEND LIBSRCS ${GPU_LIB_SRC_CU})
+ENDIF(${CUDA_FOUND})
+
 declare_suitesparse_library(cholmod "${LIBSRCS}" "${LIBHDRS}"
 	TARGET_PRIVATE_LINK	${SuiteSparse_LINKER_LAPACK_BLAS_LIBS}
 	TARGET_PUBLIC_LINK 	${SuiteSparse_LINKER_METIS_LIBS} amd camd colamd ccolamd
